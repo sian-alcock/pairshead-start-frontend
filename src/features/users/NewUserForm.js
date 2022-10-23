@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from "@fortawesome/free-solid-svg-icons"
 import { ROLES } from "../../config/roles"
+import useTitle from "../../hooks/useTitle"
 
 const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const NewUserForm = () => {
+    useTitle('techNotes: New User')
 
     const [addNewUser, {
         isLoading,
@@ -23,7 +25,7 @@ const NewUserForm = () => {
     const [validUsername, setValidUsername] = useState(false)
     const [password, setPassword] = useState('')
     const [validPassword, setValidPassword] = useState(false)
-    const [roles, setRoles] = useState(["Viewer"])
+    const [roles, setRoles] = useState(["Employee"])
 
     useEffect(() => {
         setValidUsername(USER_REGEX.test(username))
@@ -75,7 +77,7 @@ const NewUserForm = () => {
     const errClass = isError ? "errmsg" : "offscreen"
     const validUserClass = !validUsername ? 'form__input--incomplete' : ''
     const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
-    const validRolesClass = !(roles.length) ? 'form__input--incomplete' : ''
+    const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
 
 
     const content = (

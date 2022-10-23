@@ -64,7 +64,7 @@ const EditUserForm = ({ user }) => {
 
     const onActiveChanged = () => setActive(prev => !prev)
 
-    const onSaveUserClicked = async () => {
+    const onSaveUserClicked = async (e) => {
         if (password) {
             await updateUser({ id: user.id, username, password, roles, active })
         } else {
@@ -96,7 +96,7 @@ const EditUserForm = ({ user }) => {
     const errClass = (isError || isDelError) ? "errmsg" : "offscreen"
     const validUserClass = !validUsername ? 'form__input--incomplete' : ''
     const validPwdClass = password && !validPassword ? 'form__input--incomplete' : ''
-    const validRolesClass = !(roles.length) ? 'form__input--incomplete' : ''
+    const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
 
     const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
 

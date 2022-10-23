@@ -1,27 +1,32 @@
 import { Link } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
+import useTitle from '../../hooks/useTitle'
 
 const Welcome = () => {
 
-    const date = new Date()
-    const today = new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(date)
+  const { username, isAdmin } = useAuth()
 
-    const content = (
-        <section className="welcome">
+  useTitle(`techNotes: ${username}`)
 
-            <p>{today}</p>
+  const date = new Date()
+  const today = new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(date)
 
-            <h1>Welcome!</h1>
+  const content = (
+    <section className="welcome">
 
-            <p><Link to="/dash/crews">View crews</Link></p>
+      <p>{today}</p>
 
-            <p><Link to="/dash/users">View users</Link></p>
+      <h1>Welcome {username}!</h1>
 
-            <p><Link to="/dash/users/new">Add new user</Link></p>
+      <p><Link to="/dash/notes">View crews</Link></p>
 
+      {(isAdmin) && <p><Link to="/dash/users">View User Settings</Link></p>}
 
-        </section>
-    )
+      {(isAdmin) && <p><Link to="/dash/users/new">Add New User</Link></p>}
 
-    return content
+    </section>
+  )
+
+  return content
 }
 export default Welcome
