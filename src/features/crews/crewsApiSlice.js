@@ -15,7 +15,6 @@ import {
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
-            keepUnusedDataFor: 5,
             transformResponse: responseData => {
                 const loadedcrews = responseData.map(crew => {
                     crew.id = crew._id
